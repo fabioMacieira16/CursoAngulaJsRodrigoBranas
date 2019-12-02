@@ -1,0 +1,62 @@
+<html ng-app="listaComandos">
+
+<head>
+    <meta charset='utf-8'>
+    <title>Minha documentação de estudos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="angular.js"></script>
+    <script>
+        angular.module("listaComandos", []);
+        angular.module("listaComandos").controller("listaComandoCtrl", function ($scope) {
+            $scope.mensage = "Lista Comandos";
+            $scope.comandos = [
+                { nomeNg_for: "faz com que a função se repita 'n' vezes " },
+                { nome: "Nome da diretivas" },
+                { nome: "Nome da diretivas" },
+                { nome: "Nome da diretivas" },
+                { nome: "Nome da diretivas" },
+                { nome: "Nome da diretivas" },
+                { nome: "Nome da diretivas" },
+                { nome: "Nome da diretivas" },
+                { nome: "Nome da diretivas" },
+                { nome: "Nome da diretivas" },
+                { nome: "Nome da diretivas" },
+            ];
+
+            $scope.outrasDiretivas = [
+                { nome: "Nome da diretivas simples", retono: "ação que essa diretiva faz." }
+            ];
+
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="listaComandoCtrl">
+        <div class="jumbotron">
+            <h3 ng-bind="app"></h3>
+            <table class="table">
+                <tr>
+                    <th>ng-app</th>
+                    <th>ng-module</th>
+                    <th>ng-show</th>
+                    <th>ng-bind</th>
+                    <th>ng-desable</th>
+                    <th>ng-class</th>
+                    <th>ng-repeat</th>
+                    <th>push</th>
+                </tr>
+                <tr ng-repeat="comando in comandos">
+                    <th>{{comando.nomeNg_for}}</th>
+                    <th>{{comando.nome}}</th>
+                    <th>{{comando.nome}}</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>
