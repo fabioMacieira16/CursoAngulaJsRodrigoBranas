@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         .jumbotron {
-            width: 400px;
+            width: 600px;
             text-align: center;
             margin-top: 20px;
             margin-left: auto;
@@ -23,15 +23,14 @@
         
     </style>
     <script src='angular.js'></script>
-    <script src='angular.js'></script>
     <script>
         angular.module("listaTelefonica",[]);
         angular.module("listaTelefonica").controller("ListaTelefonicaCtrl", function ($scope){
             $scope.message = "Lista Telefonica";
             $scope.contatos = [
-                {nome: "Fabio", telefone: "99999999", cor: "blue"},
-                {nome: "Anan", telefone: "99999999", cor: "yellow"},
-                {nome: "Maria", telefone: "99999999", cor: "red"}
+                {nome: "Fabio", telefone: "99999999", data: new Date()},
+                {nome: "Anan", telefone: "9999-88888", data: new Date()},
+                {nome: "Maria", telefone: "9999-6666", data: new Date() }
             ];
             //Lista operadoras
             $scope.operadoras = [
@@ -61,6 +60,10 @@
                     return contato.selecionado;   
                 });
             }
+            $scope.ordernaPor = function(campo){
+                $scope.criterioDeOrdenacao = campo;
+                $scope.direracaoDaOrdenacao = !$scope.direracaoDaOrdenacao;
+            };
 
             $scope.classe = "selecionado";
         });
@@ -71,18 +74,21 @@
         <div class="jumbotron">
             <h3 ng-bind="app"></h3>
             <h4>{{ message }}</h4>
+            <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que vc esta puscando?">
             <table ng-show="contatos.length > 0" class="table">
                 <tr>
                     <th></th>
-                    <th>Nome</th>
-                    <th>Telefone</th>
+                    <th><a href="" ng-click="ordernaPor('nome')">Nome</a></th>
+                    <th><a href="" ng-click="ordernaPor('fone')">Telefone</a></th>
                     <th>Operodora</th>
+                    <th>Data</th>
                 </tr>
-                <tr ng-class="classe" ng-repeat="contato in contatos">
+                <tr ng-class="classe" ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direracaoDaOrdenacao">
                     <td><input type="checkbox" ng-model="contato.selecionado"></td>
-                    <td>{{contato.nome}}</td>
+                    <td>{{contato.nome | uppercase}}</td>
                     <td>{{contato.telefone}}</td>
                     <td>{{contato.operadora.nome}}</td>
+                    <td>{{contato.data | date: 'dd/MM/yyyy HH:mm' }}</td>
                     <td><div style="width: 20px; height: 20px;" [ngStyle]="{'background-color': contato.cor }"></div></td>
                 </tr>    
             </table>
@@ -137,7 +143,8 @@
             <button class="btn btn-danger btn-block" 
                     type="button" 
                     ng-click="ApagarContato(contatos)" 
-                    ng-show="isContatoSelecionado(contatos)">Apagar Contato
+                    ng-show="isContatoSelecionado(contatos)">
+                    Apagar Contato
             </button>
         </div>  
     </div>
