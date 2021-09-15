@@ -2,7 +2,7 @@
 
 <head>
     <meta charset='utf-8'>
-    <title>Minha documentação de estudos</title>
+    <title>Minha documentação de estudo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -10,48 +10,39 @@
     <script>
         angular.module("listaComandos", []);
         angular.module("listaComandos").controller("listaComandoCtrl", function ($scope) {
+            //Modulos abordados
             $scope.mensage = "Lista Comandos";
             $scope.comandos = [
-                { nomeNg_for: "faz com que a função se repita 'n' vezes " },
-                { nome: "Nome da diretivas" },
-                { nome: "Nome da diretivas" },
-                { nome: "Nome da diretivas" },
-                { nome: "Nome da diretivas" },
-                { nome: "Nome da diretivas" },
-                { nome: "Nome da diretivas" },
-                { nome: "Nome da diretivas" },
-                { nome: "Nome da diretivas" },
-                { nome: "Nome da diretivas" },
-                { nome: "Nome da diretivas" },
+                { nome: "ngApp" , funcao: "Responsavel por informa o nome do modulo"},
+                { nome: "ngController" , funcao: "Vincula um elemento da view a Controller "},
+                { nome: "ngBind" , funcao: "Subititue o elemento por uma expessao"},
+                { nome: "ngRepeat", funcao: "Interando sobre os itens de uma coleção ou de um objeto" },
+                { nome: "ngRepeat", funcao: "Interando sobre os itens de uma coleção ou de um objeto" },
+                { nome: "ngClick", funcao: "Atribui um comportamento ao evento" },
+                { nome: "ngDesabled", funcao: "Desabilita um elemento dinamico" },
             ];
-
-            $scope.outrasDiretivas = [
-                { nome: "Nome da diretivas simples", retono: "ação que essa diretiva faz." }
-            ];
-
         });
     </script>
+
+    <style>
+        .table {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
     <div ng-controller="listaComandoCtrl">
         <div class="jumbotron">
             <h3 ng-bind="app"></h3>
-            <table class="table">
+            <table class="table table-stripe">
                 <tr>
-                    <th>ng-app</th>
-                    <th>ng-module</th>
-                    <th>ng-show</th>
-                    <th>ng-bind</th>
-                    <th>ng-desable</th>
-                    <th>ng-class</th>
-                    <th>ng-repeat</th>
-                    <th>push</th>
+                    <th>Comandos</th>
+                    <th>função</th>
                 </tr>
                 <tr ng-repeat="comando in comandos">
-                    <th>{{comando.nomeNg_for}}</th>
-                    <th>{{comando.nome}}</th>
-                    <th>{{comando.nome}}</th>
+                    <td>{{comando.nome}}</td>
+                    <td>{{comando.funcao}}</td>
                 </tr>
             </table>
         </div>
