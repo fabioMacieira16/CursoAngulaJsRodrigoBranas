@@ -23,9 +23,10 @@
         }*/
         
     </style>
-    <script src='angular.js'></script>
+    <script src='angular-1.7.8/angular.js'></script>
+    <script src="angular-1.7.8/angular-messages.js"></script>
     <script>
-        angular.module("listaTelefonica",[]);
+        angular.module("listaTelefonica",["ngMessages"]);
         angular.module("listaTelefonica").controller("ListaTelefonicaCtrl", function ($scope){
             $scope.message = "Lista Telefonica";
             $scope.contatos = [
@@ -106,7 +107,7 @@
                    ng-minlength="10">
 
             <input class="form-control" 
-                   type="text" 
+                   type="number" 
                    name="fone"
                    ng-model="contato.telefone"
                    ng-required="true"
@@ -118,26 +119,26 @@
              <option value="">Selecione uma operadora</option>
             </select>
         </form>
-        <div ng-messages="contatoForm.nome.$error" class="alert alert-danger">
-            <div ng-messages="requerid">
-                Preencha o campo Nome!
-            </div>                
-            <div ng-message="minlength">
-                Compo nome no minimo 10 caracteres.    
+            <div ng-messages="contatoForm.nome.$error" class="alert alert-danger">
+                <div ng-messages="requerid"></div>
+                    Preencha o campo Nome!
+                             
+                <div ng-message="minlength">
+                    Compo nome deve ter no minimo 10 caracteres.    
+                </div>
             </div>
-        </div>
+
             <div ng-show="contatoForm.fone.$invalid && contatoForm.fone.$dirty" class="alert alert-danger">
                 Preecha o campo telefone!
             </div>
             <div ng-show="contatoForm.fone.$error.pattern" class="alert alert-danger">
-                campo fone deve ter o formato DDDD-DDDD!
+                campo fone deve ter o formato DDDD-DDDD
             </div>
-        
 
             <button class="btn btn-primary btn-block" 
                     type="button" 
-                    ng-click="adcionarContato(contato)" >
-                    <!--ng-disabled="contatoForm.$invalid"-->
+                    ng-click="adcionarContato(contato)">
+                    <!-- ng-disabled="contatoForm.$invalid" -->
                     Adcionar Contato
             </button>
 
