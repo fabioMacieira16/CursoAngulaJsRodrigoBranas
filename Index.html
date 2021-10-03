@@ -2,8 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ola Mundo AngulaJs</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="lib/bootstrap.css">
     <style>
         .jumbotron {
             width: 600px;
@@ -23,8 +22,10 @@
         }*/
         
     </style>
-    <script src='angular-1.7.8/angular.js'></script>
-    <script src="angular-1.7.8/angular-messages.js"></script>
+    <script src='lib/angular.js'></script>
+    <script src="lib/angular-locale_pt-br.js"></script>
+    <script src="lib/angular-messages.js"></script>
+
     <script>
         angular.module("listaTelefonica",["ngMessages"]);
         angular.module("listaTelefonica").controller("ListaTelefonicaCtrl", function ($scope){
@@ -36,12 +37,11 @@
             ];
             //Lista operadoras
             $scope.operadoras = [
-                {nome: "Oi", codigo: 14 , categoria: "Celular"},
-                {nome: "tim", codigo: 15, categoria: "Celular"},
-                {nome: "vivo", codigo: 16, categoria: "Celular"},
-                {nome: "claro", codigo: 17, categoria: "Celular"},
-                {nome: "GVT", codigo: 25, categoria: "Fixo"},
-                {nome: "Embratel", codigo: 21, categoria: "Fixo"},
+                {nome: "Oi", codigo: 14 , categoria: "Celular", preco: 2},
+                {nome: "vivo", codigo: 16, categoria: "Celular", preco: 1},
+                {nome: "tim", codigo: 15, categoria: "Celular", preco: 3},
+                {nome: "GVT", codigo: 25, categoria: "Fixo", preco: 1},
+                {nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 2},
             ];
 
             $scope.adcionarContato = function(contato){
@@ -62,7 +62,7 @@
                     return contato.selecionado;   
                 });
             }
-            $scope.ordernaPor = function(campo){
+            $scope.ordernarPor = function(campo){
                 $scope.criterioDeOrdenacao = campo;
                 $scope.direracaoDaOrdenacao = !$scope.direracaoDaOrdenacao;
             };
@@ -80,8 +80,8 @@
             <table ng-show="contatos.length > 0" class="table">
                 <tr>
                     <th></th>
-                    <th><a href="" ng-click="ordernaPor('nome')">Nome</a></th>
-                    <th><a href="" ng-click="ordernaPor('fone')">Telefone</a></th>
+                    <th><a href="" ng-click="ordernarPor('nome')">Nome</a></th>
+                    <th><a href="" ng-click="ordernarPor('fone')">Telefone</a></th>
                     <th>Operodora</th>
                     <th>Data</th>
                 </tr>
@@ -98,13 +98,8 @@
             <!--é valid {{contatoForm.$valid}}<br />
             não é valid {{contatoForm.$invalid}}<br />-->
         <form name="contatoForm">
-            <input class="form-control" 
-                   type="text" 
-                   name="nome"
-                   ng-model="contato.nome" 
-                   placeholder="Nome"
-                   ng-required="true"
-                   ng-minlength="10">
+            <input class="form-control" type="text" name="nome" ng-model="contato.nome" placeholder="Nome"
+                   ng-required="true" ng-minlength="10">
 
             <input class="form-control" 
                    type="number" 
@@ -113,9 +108,8 @@
                    ng-required="true"
                    ng-pattern="/^\d{4,5}-\d{4}$/">
             
-            <select class="form-control" 
-                    ng-model="contato.operadora" 
-                    ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+            <select class="form-control" ng-model="contato.operadora" 
+             ng-options="operadora.nome + '(' + ( operadora.preco | currency ) + ' )' for operadora in operadoras | orderBy: 'nome'">
              <option value="">Selecione uma operadora</option>
             </select>
         </form>
@@ -151,6 +145,6 @@
         </div>  
     </div>
 </div>
-<div ng-include="'footer.html'">
+<div ng-include="footer.html">
 </body>
 </html>
